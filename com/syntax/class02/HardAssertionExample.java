@@ -28,16 +28,17 @@ public class HardAssertionExample {
 		driver.quit();
 	}
 
-	@Test()
+	@Test(groups="regression")
 	public void titleValidation() {
-		String expectedTitle = "Human Management System";
+		String expectedTitle = "Human Management Systems";
 		String actualTitle = driver.getTitle();// "Human Management System"
-		System.out.println("titleValidation");
-		
+//		System.out.println("titleValidation");		
 		Assert.assertEquals(actualTitle, expectedTitle);
+		System.out.println("-- Code after assertion --");
+		
 	}
 
-	@Test()
+	@Test(groups="regression")
 	public void logoValidation() {
 		WebElement element = driver.findElement(By.xpath("//div[@id='divLogo']/img"));
 		System.out.println("logoValidation");
@@ -45,9 +46,9 @@ public class HardAssertionExample {
 		Assert.assertTrue(element.isDisplayed());
 			}
 
-	@Test()
+	@Test(groups="regression")
 	public void loginFormText() {
-		String expectedText="LOGIN Panels";
+		String expectedText="LOGIN Panel";
 		WebElement loginForm=driver.findElement(By.id("logInPanelHeading"));
 		System.out.println("loginFormText");
 		

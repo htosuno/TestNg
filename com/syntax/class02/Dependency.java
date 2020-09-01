@@ -26,7 +26,7 @@ public class Dependency {
 		driver.quit();
 	}
 
-	@Test()
+	@Test(groups="smoke")
 	public void validLogin() {
 		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
 		driver.findElement(By.id("txtPassword")).sendKeys("Hum@nhrm123");
@@ -40,7 +40,7 @@ public class Dependency {
 		}
 	}
 
-	@Test(dependsOnMethods= "titleValidation")
+	@Test(groups="regression", dependsOnMethods= "titleValidation")
 	public void invalidLogin() {
 		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
 		driver.findElement(By.id("btnLogin")).click();
@@ -53,7 +53,7 @@ public class Dependency {
 		}
 	}
 
-	@Test()
+	@Test(groups="regression")
 	public void titleValidation() {
 		String expectedTitle = "Human Management System";
 //		String actualTitle = driver.getTitle();
