@@ -12,7 +12,7 @@ public class Dependency {
 
 	public static String url = "http://166.62.36.207/humanresources/symfony/web/index.php/auth/login";
 
-	@BeforeMethod
+	@BeforeMethod(alwaysRun=true)
 	public void openBrowser() {
 		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
 
@@ -21,26 +21,26 @@ public class Dependency {
 		driver.manage().window().maximize();
 	}
 
-	@AfterMethod
+	@AfterMethod(alwaysRun=true)
 	public void closeBrowser() {
 		driver.quit();
 	}
 
-	@Test(groups="smoke")
+	@Test
 	public void validLogin() {
 		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
 		driver.findElement(By.id("txtPassword")).sendKeys("Hum@nhrm123");
 		driver.findElement(By.id("btnLogin")).click();
-		String welocomeText = driver.findElement(By.id("welcome")).getText();
+		String welcomeText = driver.findElement(By.id("welcome")).getText();
 
-		if (welocomeText.contains("Admin")) {
+		if (welcomeText.contains("Admin")) {
 			System.out.println("Admin is logged in. Test pass");
 		} else {
 			System.out.println("Admin is NOT logged in. Test fail");
 		}
 	}
 
-	@Test(groups="regression", dependsOnMethods= "titleValidation")
+	@Test(dependsOnMethods= "titleValidation")
 	public void invalidLogin() {
 		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
 		driver.findElement(By.id("btnLogin")).click();
@@ -53,7 +53,7 @@ public class Dependency {
 		}
 	}
 
-	@Test(groups="regression")
+	@Test
 	public void titleValidation() {
 		String expectedTitle = "Human Management System";
 //		String actualTitle = driver.getTitle();
